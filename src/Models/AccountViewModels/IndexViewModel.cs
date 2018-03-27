@@ -24,6 +24,7 @@ namespace Aiursoft.Account.Models.AccountViewModels
         [MaxLength(20)]
         [Display(Name = "Nick name")]
         public virtual string NickName { get; set; }
+        [MaxLength(80)]
         public virtual string Bio { get; set; }
     }
 }
