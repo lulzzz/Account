@@ -34,6 +34,7 @@ namespace Aiursoft.Account
                 .AddDefaultTokenProviders();
 
             services.AddLocalization(options => options.ResourcesPath = "Resources");
+            services.AddTransient<AuthService<AccountUser>>();
             services.AddTransient<AiurSMSSender>();
             services.AddMvc()
                 .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);

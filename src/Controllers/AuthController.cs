@@ -7,23 +7,17 @@ using Aiursoft.Pylon.Attributes;
 using System;
 using Aiursoft.Pylon.Models.ForApps.AddressModels;
 using Aiursoft.Pylon;
+using Aiursoft.Pylon.Services;
 
 namespace Aiursoft.Account.Controllers
 {
     public class AuthController : Controller
     {
-        public readonly UserManager<AccountUser> _userManager;
-        public readonly SignInManager<AccountUser> _signInManager;
-        public readonly AccountDbContext _dbContext;
-
+        private readonly AuthService<AccountUser> _authService;
         public AuthController(
-            UserManager<AccountUser> userManager,
-            SignInManager<AccountUser> signInManager,
-            AccountDbContext _context)
+            AuthService<AccountUser> authService)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _dbContext = _context;
+            _authService = authService;
         }
 
         [AiurForceAuth(preferController: "", preferAction: "", justTry: false)]
@@ -40,7 +34,8 @@ namespace Aiursoft.Account.Controllers
 
         public async Task<IActionResult> AuthResult(AuthResultAddressModel model)
         {
-            await AuthProcess.AuthApp(this, model, _userManager, _signInManager);
+            var user = await _authService.AuthApp(model);
+            this.SetClientLang(user.PreferedLanguage);
             return Redirect(model.state);
         }
     }
