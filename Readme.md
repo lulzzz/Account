@@ -44,11 +44,9 @@ If you have IIS installed already, just config the web path to:
 
 ## What is the relationship with other Aiursoft apps
 
-For all apps' information is stored in the developer project, it requires the developer project is well configured.
+Server side Account app do not be responsible for any users' information. Users' information is storaged in API app's database.
 
-To grant an app to access Aiursoft APIs, API needs to check its app id and app secret. API will submit those information to developer site to check and grant.
-
-All other Aiursoft apps which require access token will check the app detail with API app, for here stores all access tokens.
+Account app only updates users' information when the user is signed in.
 
 ## How to contribute
 
